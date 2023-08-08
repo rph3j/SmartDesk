@@ -1,0 +1,84 @@
+body{
+    background-image: URL('../../backGround/hixs_pattern_evolution.png');
+    text-align: center;
+}
+/*=================================
+        General Style
+=================================*/
+.generalBG{
+    position: relative;
+    text-align: center;
+    border: 5px #4CCFE0 solid;
+    background-color: #21586159;
+    box-shadow: 0px 0px 7px #51DBED;
+}
+.Text{
+    margin: 0 auto;
+    font-family: Glich;
+}
+
+.tableDiv{
+    display: inline-block;
+    color: azure;
+    width: 70%;
+    height: 70%;
+    overflow-y: scroll;
+    margin: 2%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #51DBED;
+    border: 3px #DBB20B solid;
+    background-color: #000000b6;
+}
+.tableDiv::-webkit-scrollbar{
+    background-color: rgba(255, 255, 255, 0);
+    border-left: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px #DBB20B solid;
+}
+.tableDiv::-webkit-scrollbar-thumb {
+    background: #ffffff80;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 3px #DBB20B solid;
+    border-left: 0px;
+}
+table {
+    width: 100%;
+    margin: auto;
+}
+table td{
+    border: 1px solid #DBB20B;
+}
+/*=====================================
+        App content style
+======================================*/
+.panelBar{
+    width: 36.31vw;
+    height: 98vh;
+    margin: 1vh;
+    float:left;
+}
+.upBar{
+    position: relative;
+    margin-bottom: 2vh;
+    width: 100%;
+    height: 38.31%;
+    /*background-color: red;*/
+}
+.downBar{
+    position: relative;
+    width: 100%;
+    height: 60%;
+    
+    /*background-color: rgba(255, 255, 255, 0.8)*/
+}
+.contentBar{
+    width: 61vw;
+    height: 100vh;
+    float:left;
+}
+.clear{
+    clear: both;
+    display: none;
+}

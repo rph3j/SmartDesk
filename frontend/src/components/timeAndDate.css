@@ -1,0 +1,24 @@
+.timeAndDate{
+    width: 95%;
+    height: 95%;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 80px;
+}
+
+.generalDownButtonStyle{
+    background-color: #ffffff80;
+    border: 3px solid #DBB20B;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin: 1%;
+}
+.generalDownButtonStyle:hover{
+    background-color: #4ccfe080;
+    border: 3px solid #4ccfe0a6;
+    box-shadow: 0px 0px 7px #51DBED;
+}
+.singleDownButton{
+    display: inline-block;
+    width: 60%;
+    height: 7%;
+}

@@ -1,0 +1,102 @@
+.ManagementPanel{
+    position: relative;
+    width: 95%;
+    height: 95%;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 80px;
+}
+.lightPanel{
+    margin: 1%;
+    margin-left: 2%;
+}
+.generalButtonStyle{
+    background-color: #ffffff80;
+    border: 3px solid #DBB20B;
+    border-bottom-right-radius: 30px;
+    border-top-left-radius: 30px;
+    margin: 1%;
+}
+.modeButton{
+    display: inline-block;
+    height: 3vh !important;
+    margin: 2% !important;
+}
+.modeButton:hover{
+    background-color: #b69203b7 !important;
+    border: 3px double #DBB20B !important;
+    box-shadow: 0px 0px 7px #DBB20Be3 !important;
+}
+.lightPanel button{
+    width: 30%;
+    height: 20%;
+}
+.generalButtonStyle:hover{
+    background-color: #4ccfe080;
+    border: 3px solid #4ccfe0a6;
+    box-shadow: 0px 0px 7px #51DBED;
+}
+.singleButton{
+    display: inline-block;
+    width: 60%;
+    height: 20%;
+}
+.lightInfo{
+    position: relative;
+    display: inline-block;
+    width: 60%;
+    height: 20%;
+    border: 3px solid #DBB20B;
+    box-shadow: 0px 0px 5px #51DBED;
+    margin: 1%;
+    border-radius: 5px;
+}
+.lightInfo.On{
+    background-color: azure;
+}
+.lightInfo.Off{
+    background-color: rgb(0, 0, 0);
+}
+
+.autoMode{
+    position: relative;
+    display: inline-block;
+    color: white;
+    margin-top: 0.5vh;
+    font-size: 5vh;
+}
+.ghost{
+    display: none;
+}
+
+/*=================================
+        Modals style
+=================================*/
+
+.modal{
+    background-image: url("../../../backGround/bo_play_pattern.png");
+    width: 50vw;
+    margin: auto;
+    margin-top: 20vh;
+    border: 10px #18a5bb solid;
+    box-shadow: 0px 0px 20px #51DBED;
+    border-radius: 20px;
+}
+
+.modal button {
+    margin: 1%;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 30px;
+}
+
+.exitAndOff{
+    width: 30% !important;
+    height: 10% !important;
+}
+
+.exitAndOff:hover{
+    background-color: #e0694c80 !important;
+    border: 3px solid #f81313a6 !important;
+    box-shadow: 0px 0px 7px #ed5151 !important;
+}

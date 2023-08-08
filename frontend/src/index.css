@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "Cyber";
+  src: url("./Fonts/23.59/23.59.ttf");
+}
+@font-face {
+  font-family: "Glich";
+  src: url("./Fonts/glitch_goblin/GlitchGoblin.ttf");
+}
+@font-face {
+  font-family: "Cornerita";
+  src: url("./Fonts/cornerita/Cornerita/Cornerita-VF.ttf");
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
