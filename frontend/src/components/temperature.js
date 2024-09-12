@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// Shows temperature and humidity
 function Temp(){
     const [temp, setTemp] = useState(0);
     const [hum, setHum] = useState(0);

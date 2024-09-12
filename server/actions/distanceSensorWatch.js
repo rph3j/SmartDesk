@@ -2,9 +2,13 @@ const Gpio = require('pigpio').Gpio;
 const RasPi = require('./RasPi.js');
 const DB = require('../actions/dbActions');
 
-//***********************************************
-// funkcja wywoływana po 5 minutach po odejściu od biurka. w przypadku powrotu liczy czas dalej.
-//***********************************************
+
+// *******************************************************************************************
+// the file contains a function for the distance sensor
+//********************************************************************************************
+
+
+// function called 5 minutes after leaving the desk. in case of return, he continues to count the time.
 function saveTime() 
 {
   if(distance > 20)
@@ -22,30 +26,21 @@ function saveTime()
   ifBreak = false;
 }
 
-//***********************************************
-// The number of microseconds it takes sound to travel 1cm at 20 degrees celcius -- z biblioteki i wskazuwek dotyczących urzywania sesnora
-//***********************************************
+
+// The number of microseconds it takes sound to travel 1cm at 20 degrees celcius
 const MICROSECDONDS_PER_CM = 1e6/34321;
 
-//***********************************************
-// definicja pinów
-//***********************************************
 const trigger = new Gpio(24, {mode: Gpio.OUTPUT});
 const echo = new Gpio(23, {mode: Gpio.INPUT, alert: true});
 
 trigger.digitalWrite(0); // Make sure trigger is low
 
-//***********************************************
-// zmienne
-//***********************************************
-let setStart; // czas początkowy
-let nearDesk = false; // wartość bool sygnalizująca czy znajduje się przy biurku
-let ifBreak = false; // wartość bool sygnalisująca czy nie jest przypadkie mywoływana funkcja savrTime
-let distance; // zapisywana wartość dystansu.
+let setStart; // starting time
+let nearDesk = false; // a bool value indicating whether he is at the desk
+let ifBreak = false; // a bool value indicating whether the savrTime function is accidentally called
+let distance; // recorded distance value.
 
-//***********************************************
-// Głowna funkcja
-//***********************************************
+// main function - from tutorial
 const watchHCSR04 = () => {
   let startTick;
   echo.on('alert', (level, tick) => {
@@ -57,9 +52,8 @@ const watchHCSR04 = () => {
       //console.log(diff / 2 / MICROSECDONDS_PER_CM);
       distance = diff / 2 / MICROSECDONDS_PER_CM;
 
-//***********************************************
-// jestem przy biurku rozpoczynam liczenie czasu.
-//***********************************************
+
+// I start counting the time spent at my desk
       if(distance < 20 && !nearDesk && !ifBreak)
       {
           const date = new Date();
@@ -68,9 +62,7 @@ const watchHCSR04 = () => {
           nearDesk = true;
           RasPi.turnOnOffLight(true);
       }
-//***********************************************
-// odsuwam się od biurka - morże timer na 5m, jeślio nadal nie ma mnie przy biurku to  -> koniczę liczenie czasu, zapisuje wynik do bazy, 
-//***********************************************
+// I move away from the desk - the timer starts at 5m, if I'm still not at the desk, then -> I finish counting the time, save the result to the database!
       if(distance >= 20 && nearDesk)
       {
         nearDesk = false;
@@ -84,9 +76,7 @@ const watchHCSR04 = () => {
 
 watchHCSR04();
 
-//***********************************************
-// Trigger słurzący do mierzania dystansu
-//***********************************************
+// Trigger
 setInterval(() => {
   trigger.trigger(10, 1); // Set trigger high for 10 microseconds
 }, 1000);

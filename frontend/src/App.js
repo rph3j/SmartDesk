@@ -6,9 +6,8 @@ import Main from "./components/main.js";
 
 function App() {
 // =================================================================
-// Główny plik renderowny na stronie
-//  <Management /> - odpowieda za zarządzenia podzespołami
-// <TimeAndData /> - odpowiada za wyświtlanie danych z bazy
+// <Management /> - responsibility for managing components
+// <TimeAndData /> - responsible for displaying data from the database
 // =================================================================
   return(<div>
     <div className="panelBar">

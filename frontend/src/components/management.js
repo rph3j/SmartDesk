@@ -23,14 +23,11 @@ class management extends React.Component {
       };
       Modal.setAppElement('body');
     }  
-/*=========================================================================
-                            Baza danych
-=========================================================================*/
-    // terz musi być bo map się wywali
     componentDidMount(){
         this.fetchGeneral()
     }
 
+    // change the icon for the mode
     componentDidUpdate(){
       if(this.state.isAutoMode)
       {
@@ -44,7 +41,7 @@ class management extends React.Component {
       }
       
     }
-    // pobieranie danych z bazy
+    // fetch data from the database
     async fetchGeneral(){
         const res = await axios.get('http://localhost:8080/api/timeData');
         const rows = res.data;
@@ -59,7 +56,7 @@ class management extends React.Component {
         //console.log(this.state.rows);
     }
 /*=========================================================================
-                      Funkcje od światła
+                      Features from light
 =========================================================================*/ 
     async toggleLight(onORoff){
         if(!this.state.isAutoMode)
@@ -75,6 +72,7 @@ class management extends React.Component {
           }
         }
     }
+    // RGB LED strip configuration
     async onSubmit(R,G,B){
       await axios.post('http://localhost:8080/api/RGB', { 
           Red: R,
@@ -83,21 +81,23 @@ class management extends React.Component {
         },{
           headers: {
 /*=========================================================================
-  Bez tego nagłówka nie zadziała body-parser i sobie niczego nie wyślesz
+  Without this header, the bodyparser does not work and you will not send anything
 =========================================================================*/
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         })
     }
 /*=========================================================================
-                            Pokacywanie modala
+                            Showing modals
 =========================================================================*/
+    // modal for setting Led stip color
     toggleLedModal(){
       this.setState({ 
         showLedModal:  !this.state.showLedModal
       });
       console.log('dziala')
     };
+    // modal for all db record
     toggleDBModal(){
         if(!this.state.showDBModal){
           this.fetchGeneral()
@@ -106,6 +106,10 @@ class management extends React.Component {
           showDBModal:  !this.state.showDBModal        
         });
       }
+/*=========================================================================
+                            other functions
+=========================================================================*/
+    // helper for displaying date
     dateDisplay(d,mode){
       if(mode){
           return dayjs(d).format("DD.MM.YYYY");
@@ -113,18 +117,21 @@ class management extends React.Component {
           return dayjs(d).format("HH:mm");
       }
     }
+
+    // helper for displaying time
     timeDisplay(ms) { 
-      // floor zaokrągla do najmniejszej najbliższej liczby całkowitej
+      // floor rounds to the smallest nearest integer
       let s = Math.floor(ms / 1000);
       let min = Math.floor(s / 60);
       let h = Math.floor(min / 60);
 
-      s = s % 60; // % reszt z dzielenia dwóch liczb całkowitych
+      s = s % 60; // % the remainder of dividing two integers
       min = min % 60;
 
       return h + ":" + min + ":" + s + " h.";
   }
 
+  // generating pdf report
   generatePDF(){
     const report = new JsPDF();
     let text = 'Time Report';
@@ -144,11 +151,13 @@ class management extends React.Component {
     report.save('report.pdf');
   }
 
+  // clear db records 
   async clearTable(){
     await axios.delete('http://localhost:8080/api/clearTable');
     this.toggleDBModal();
   }
 
+  // DB record display as table
   tableDisplayGeneral(){
     if(this.state.ifEmptyGeneral){
       return  (
@@ -180,7 +189,8 @@ class management extends React.Component {
             <span className="lightInfo Off"><span className='autoMode Text ghost'>AUTO MODE</span></span>
 
 {/*=================================== 
-      Przyciski od zaminy kolorów 
+      Color changing buttons
+         (for led strip)
 ======================================*/}
               <Modal isOpen={this.state.showLedModal} className='modal'>
                 <button className='generalButtonStyle' onClick={() => this.onSubmit(1,0,0)}> Red </button>
@@ -213,7 +223,7 @@ class management extends React.Component {
               </Modal>
 
 {/*=================================== 
-              Zmana trybu
+          Mode changing
 ======================================*/}
               <div>
                 <button className="generalButtonStyle singleButton" onClick={async () => this.toggleLedModal() }>Led Color Editior</button>

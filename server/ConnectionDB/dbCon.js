@@ -2,9 +2,10 @@ const mariadb = require('mariadb/callback');
 const { dbHost, dbUser, dbPass, dbName } = require('../Config.js');
 
 // =================================================================
-// połaczenie z baza danych za pomocą biblioteki mariadb z collback.
+// connection to the database using the mariadb library with callback.
 // =================================================================
 
+// code from mariadb x nodejs manual
 const pool = mariadb.createPool({
     host: dbHost,
     user: dbUser,
@@ -18,9 +19,8 @@ pool.getConnection((err, conn) => {
       console.log("not connected due to error: " + err);
     } else {
       console.log("connected ! connection id is " + conn.threadId);
-      conn.end(); //release to pool
+      conn.end();
     }
   });
 
-// exportuje połacznie
 module.exports = pool;

@@ -17,11 +17,12 @@ let ifManual = true;
 let ifActivated = true;
 
 // ==========================================================================================================
-// Plik z metodami odpowiedzialnymi za wywolanie odpowiednich endPointów słóżoących do zarządzania GPIO RasPi
+// File with methods responsible for calling the appropriate endPoints used to manage the RasPi GPIO
 // ==========================================================================================================
 
 class RasPiAction {
 
+    // light on
     async On(req, res){
         if(ifManual)
         {
@@ -30,6 +31,7 @@ class RasPiAction {
         }
         res.status(200).send();
     } 
+    // light off
     async Off(req, res){
         if(ifManual)
         {
@@ -38,6 +40,7 @@ class RasPiAction {
         }
         res.status(200).send();
     } 
+    // Led strip off
     LedOff(req, res){
         if(ifManual)
         {
@@ -47,6 +50,7 @@ class RasPiAction {
         }
         res.status(200).send();
     }
+    // Led strip RGB control
     RGB(req,res){
 
         Red = parseInt(req.body.Red);
@@ -63,6 +67,7 @@ class RasPiAction {
         res.status(201).json();
     }
 
+    // turning all light on or off
     turnOnOffLight(onORoff){
         if(ifManual == false){
             if(onORoff){
@@ -81,6 +86,7 @@ class RasPiAction {
         }
     }
 
+    // switching mode between automatic and manual
     changeMode(req, res){
         if(ifManual)
         {
@@ -96,6 +102,7 @@ class RasPiAction {
         res.status(200).send();
     }
 
+    // downloading temperature and humidity data from the DHT sensor
     async DHT22(req, res) {
         try {
           const result = await sensor.read(22, 6);

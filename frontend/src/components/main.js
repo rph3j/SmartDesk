@@ -9,7 +9,7 @@ render(){
     return(
         <div className='generalBG Content'>
 {/*=======================================
-    Wery style is definied in main.css
+   Every style is defined in main.css
 =======================================*/}
             <Clock />
             <Temperature />

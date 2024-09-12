@@ -1,7 +1,5 @@
 // =================================================================
-// Głwny plik servera to tu się wszstko zaczyna
-// server jest utowrzony za pomocą biblioteki express
-// cors - użyty by dane mogły byc przesłana pomiędzy portami na których działa server i frontend
+// main project file
 // =================================================================
 
 const express = require('express');

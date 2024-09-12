@@ -3,10 +3,14 @@ import dayjs from 'dayjs';
 import axios from 'axios';
 import './timeAndDate.css';
 
-// =================================================================
-// plik odpowiedzialny za wyświtlania danych które zostały zaciągnięte z fservera oraz wywołanie odpowiedniego endPointa by te dane uzyskać.
-// =================================================================
 
+
+/**********************************************************************************************************************************************
+    class to disple only today DB records.
+    In general, the functions are the same as in the general display. the data differs mainly in that it is taken only from the current date.
+    Fnction comments are in the file management.js
+ **********************************************************************************************************************************************
+ */
 class timeAndDate extends React.Component {
 
     constructor(props){
@@ -18,7 +22,7 @@ class timeAndDate extends React.Component {
             now: new Date()
         };
     }
-    // wywołanie po załoadowniu strony
+
     componentDidMount() {
         this.feachData();
     }
@@ -35,12 +39,11 @@ class timeAndDate extends React.Component {
     }
 
     timeDisplay(ms) { 
-        // floor zaokrągla do najmniejszej najbliższej liczby całkowitej
         let s = Math.floor(ms / 1000);
         let min = Math.floor(s / 60);
         let h = Math.floor(min / 60);
 
-        s = s % 60; // % reszt z dzielenia dwóch liczb całkowitych
+        s = s % 60;
         min = min % 60;
 
         return h + ":" + min + ":" + s + " h.";
