@@ -42,51 +42,101 @@ This project was developed as a diploma thesis. It covers a topic like sensor in
    ```bash
    cd SmartDesk
    ```
-3. Create venv environment:
-   *Important note: * picamera2 library requires installation via system package manager. Make sure you open your venv to system package!
-   ```bash
-   python -m venv --system-site-packages .venv
-   source .venv/bin/activate
-   ```
 
 4. Install all dependencies:
    ```bash
-   python -m pip install flask keras pygame opencv-python
-   sudo apt install python3-picamera2
-   
+   cd server
+   npm install
+   cd..
+   cd frontend
+   npm install
    ```
-5. Starting WWW interface:
+5. Installing mariadb:
     ```bash
-    python3 main.py
+    sudo apt update
+    sudo apt install mariadb-server mariadb-client -y
+    
+    sudo systemctl start mariadb
+    sudo systemctl enable mariadb
+    
+    sudo mariadb -u root
     ```
-7. Starting machine learning section:<br>
-   ***Important note:** make sure you check this file and comment unnesesery line!*
-      ```bash
-      cd Learning
-      python3 learning.py  
-      ```
+6. Preparing a database:
+    ```bash
+   CREATE DATABASE Time;
+   USE Time;
+
+   CREATE TABLE moja_tabela (
+       id INT PRIMARY KEY AUTO_INCREMENT,
+       date DATE NOT NULL,
+       timeS INT NOT NULL
+   );
+
+   CREATE USER 'PiCon'@'localhost' IDENTIFIED BY 'Your_Password';
+
+   GRANT ALL PRIVILEGES ON Time.* TO 'PiCon'@'localhost';
+
+   FLUSH PRIVILEGES;
+   ```
+7. Configure Config.js file:
+   * Port – specifies the port on which the server should listen
+   * dbHost – the hostname assigned to the database
+   * dbUser – the username for the database account (PiCon)
+   * dbPass – the password for the database user (Your_Password)
+   * dbName – the name of the database (Time)
+   * timeAtTheDesk – the name of the module that manages time spent at the desk
+   * MeasurementDate – the name of the storage field that holds the date associated with the recorded time.
+     
+8. Starting server:
+    ```bash
+    cd server
+    npm run dev
+    ```
+9. Starting frontend:
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+10. The Node.js module and React.js module should run in the same time.
 ---
+
+## 📟 Some electronic schematics
+
+### Connecting the HC-SR04
+<img width="387" height="313" alt="Zrzut ekranu 2026-10-29 183709" src="https://github.com/user-attachments/assets/9ffcfc1c-950b-4fde-85d3-ca3c97f6b386" />
+
+### Connecting the led strip
+<img width="362" height="391" alt="Zrzut ekranu 2026-10-29 183724" src="https://github.com/user-attachments/assets/ee40d638-5fe6-442b-b946-67819cbd18e7" />
+
+### Connecting the HT-22
+<img width="369" height="240" alt="Zrzut ekranu 2026-10-29 183731" src="https://github.com/user-attachments/assets/89a8670a-381c-426c-9188-30258f4feb24" />
+
+### Connecting MOS 5V
+Unfortunately, I do not have a prepared schematic for this module at the moment. I have included it in this section to highlight its presence as the module responsible for lighting management (e.g., in a room).
+
+
 ## 🖥️ WWW Interface and what you can do with it!
 
-### Manual Driving
-W tej sekcji dostępny jest podgląd z kamery w czasie rzeczywistym; możesz tu również sterować robotem (sprawdź instrukcję obsługi kontrolera poniżej).
-Dwa suwaki po lewej stronie służą do ustawienia stałej prędkości lub całkowitego zablokowania ruchu robota. This feature is using meanlu to better collecting learning data.
-<img width="1895" height="834" alt="Manual" src="https://github.com/user-attachments/assets/c14cfcbb-5100-490a-8773-01821d131438" />
+### Main page
+On this page, you can control the main functions of the project.<br><br>
+<img width="599" height="279" alt="Zrzut ekranu 2026-10-29 184051" src="https://github.com/user-attachments/assets/60a1bb85-8bec-4ed2-992f-faf114271e05" />
+# The left windowis
+Is usage to display time, temperature, humidity and to change distance and time of distance sensor activation (HC-SR04). This sensor check if you are in desk.<br><br>
+<img width="434" height="313" alt="Zrzut ekranu 2026-10-29 190049" src="https://github.com/user-attachments/assets/d47bfd4b-a971-416c-857a-85b8b10b5aef" />
+# The right top window
+This part menage light, led colour and display general data about time spending in desk. You can change Light mode to automatic. This mode shod of light and start led when you sit on desk.
+* Light ON<br><br><img width="427" height="130" alt="Zrzut ekranu 2026-10-29 184102" src="https://github.com/user-attachments/assets/c8aa4235-2bf2-419c-bd85-b5a0e0299cbc" />
 
-### Automatic Driving
-In this section wy have view to learning charts, and buttons for two variant of models. You can change used model in autoRunMain.py file.
-<img width="1808" height="652" alt="Auto" src="https://github.com/user-attachments/assets/1f469390-f48f-42eb-96f0-38ce97c01c90" />
+* Auto mode<br><br><img width="414" height="129" alt="Zrzut ekranu 2026-10-29 184110" src="https://github.com/user-attachments/assets/1b2813b4-ddc1-4d72-83c4-075056b5adf0" />
 
-### Machine Learning
-This section wos designet to visualize learning proces but is more convenient to use your command line, like i mension before.
-<img width="1882" height="632" alt="Learn" src="https://github.com/user-attachments/assets/1ee2ae19-2a24-4c1c-8cde-882655705de4" />
+* Led color panel<br><br><img width="605" height="200" alt="Zrzut ekranu 2026-10-29 184115" src="https://github.com/user-attachments/assets/f7701f73-2a4f-493d-9d1f-372140d87c0e" />
 
-## 🕹️ Controller manual
-* Right trigger - this trigger is usage to apply speed to engine. The further it is pressed, the greater the percentage of engine power that is applied
-* Left joystick - use for detecting a percentage change and applying this change to the vehicle's steering.
-* Right joystick - It is used to detect omnidirectional motion and transmit this change to the vehicle's steering system.
-* B - Starting and stopping collecting data for self driving. This button collect only turn data.
-* A nad X - Starting and stopping collecting data for self driving. This buttons collect data for speed and omnidirectional motios.
+* Time data<br><br><img width="600" height="205" alt="Zrzut ekranu 2026-10-29 184120" src="https://github.com/user-attachments/assets/837ded2f-35ac-42a0-8316-8727daa0705d" />
+
+# The right bottom window
+In this window you can see daily time spent at desk.<br><br>
+<img width="381" height="317" alt="Zrzut ekranu 2026-10-29 184124" src="https://github.com/user-attachments/assets/702c8ab2-b96c-48d7-88c3-b93555b8cad1" />
+
 
 ## 👤 Autor
 
